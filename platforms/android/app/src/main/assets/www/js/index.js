@@ -23,11 +23,11 @@ var app = {
 
     onDeviceReady: function() {
         document.getElementById('newItem').addEventListener('click', (() => window.location = "newitem.html"), false)
-//        this.saveData('test', '0')
-        this.refreshData()
+        this.saveItem('test', '0')
+        this.refreshItems()
     },
     
-    retrieveData: function() {
+    retrieveItems: function() {
         if (localStorage.getItem('items') !== null) {
             
             for (let i=0; i<JSON.parse(localStorage.getItem('items')).length; i++) {
@@ -40,16 +40,22 @@ var app = {
                 date.innerHTML = JSON.parse(localStorage.getItem('items'))[i][1]
                 date.setAttribute('class', 'date')
                 
+                let remove = document.createElement('span')
+                remove.setAttribute('class', 'remove')
+                remove.addEventListener('click', (() => this.removeItem(event)), false)
+                remove.setAttribute('id', i)
+                
                 let item = document.createElement('div')
                 item.setAttribute('class', 'item')
                 item.appendChild(title)
                 item.appendChild(date)
+                item.appendChild(remove)
                 document.getElementById('items').appendChild(item)
             }
         }
     },
     
-    saveData: function(title, date) {
+    saveItem: function(title, date) {
         let items = []
         const item = [title, date]
         
@@ -60,16 +66,22 @@ var app = {
         localStorage.setItem('items', JSON.stringify(items))
     },
     
-    removeData: function(item) {
-        localStorage.removeItem(item)
+    removeItem: function(event) {
+        let index = event.target.getAttribute('id')
+        
+        items = JSON.parse(localStorage.getItem('items'))
+        items.splice(index, 1)
+        localStorage.setItem('items', JSON.stringify(items))
+        
+        this.refreshItems()
     },
     
-    refreshData: function() {
+    refreshItems: function() {
         const items = document.getElementById('items')
         while (items.firstChild) {
             items.removeChild(items.firstChild)
         }
-        this.retrieveData()
+        this.retrieveItems()
     }
 };
 
