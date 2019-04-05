@@ -22,8 +22,9 @@ var app = {
     },
 
     onDeviceReady: function() {
+        document.getElementById('newItem').addEventListener('click', (() => window.location = "newitem.html"), false)
 //        this.saveData('test', '0')
-        this.refreshList()
+        this.refreshData()
     },
     
     retrieveData: function() {
@@ -63,7 +64,7 @@ var app = {
         localStorage.removeItem(item)
     },
     
-    refreshList: function() {
+    refreshData: function() {
         const items = document.getElementById('items')
         while (items.firstChild) {
             items.removeChild(items.firstChild)
