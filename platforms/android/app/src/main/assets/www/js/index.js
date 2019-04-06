@@ -37,40 +37,49 @@ var app = {
     
     retrieveItems: function() {
         
-        if (localStorage.getItem('items') !== null) {
-            const daysSinceEpoch = this.getDaysSinceEpoch()
+        if (localStorage.getItem('items') === null) {
+            this.noItems()
+            return
             
+        } else if (JSON.parse(localStorage.getItem('items')).length === 0) {
+            this.noItems()
+            return
+            
+        } else {
+            
+            const daysSinceEpoch = this.getDaysSinceEpoch()
+
             for (let i=0; i<JSON.parse(localStorage.getItem('items')).length; i++) {
-                
+
                 let difference = parseInt(JSON.parse(localStorage.getItem('items'))[i][1]) - daysSinceEpoch
                 if (difference < 0) difference = 0
-                
+
                 // Create title element
                 let title = document.createElement('div')
                 title.innerHTML = JSON.parse(localStorage.getItem('items'))[i][0]
                 title.setAttribute('class', 'title')
-                
+
                 // Create 'time left' element
                 let time = document.createElement('div')
                 time.innerHTML = difference
                 time.setAttribute('class', 'time')
-                
+
                 let days = document.createElement('div')
                 days.innerHTML = 'days'
                 days.setAttribute('class', 'days')
-                
+
                 let timeContainer = document.createElement('div')
                 timeContainer.setAttribute('class', 'timeContainer')
                 timeContainer.appendChild(time)
                 timeContainer.appendChild(days)
-                
+
                 // Create delete button
                 let remove = document.createElement('div')
                 remove.innerHTML = "&#x2716;"
                 remove.setAttribute('class', 'remove')
                 remove.addEventListener('click', (() => this.removeItem(event)), false)
                 remove.setAttribute('id', i)
-                
+
                 // Add the item to items container
                 let item = document.createElement('div')
                 item.setAttribute('class', 'item')
@@ -79,12 +88,14 @@ var app = {
                 item.appendChild(remove)
                 document.getElementById('items').appendChild(item)
             }
-        } else {
-            let noItems = document.createElement('div')
-            noItems.innerHTML = 'You have no' + '<br>' + 'upcoming events.'
-            noItems.setAttribute('class', 'noItems')
-            document.getElementById('items').appendChild(noItems)
         }
+    },
+    
+    noItems: function() {
+        let noItems = document.createElement('div')
+        noItems.innerHTML = 'You have no' + '<br>' + 'upcoming events.'
+        noItems.setAttribute('class', 'noItems')
+        document.getElementById('items').appendChild(noItems)
     },
     
     getDaysSinceEpoch: function() {
