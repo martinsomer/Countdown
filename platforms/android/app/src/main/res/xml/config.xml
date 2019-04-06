@@ -20,6 +20,11 @@
     <allow-intent href="mailto:*" />
     <allow-intent href="geo:*" />
     <allow-intent href="market:*" />
+    <icon density="mdpi" src="./icons/mipmap-mdpi/ic_launcher.png" />
+    <icon density="hdpi" src="./icons/mipmap-hdpi/ic_launcher.png" />
+    <icon density="xhdpi" src="./icons/mipmap-xhdpi/ic_launcher.png" />
+    <icon density="xxhdpi" src="./icons/mipmap-xxhdpi/ic_launcher.png" />
+    <icon density="xxxhdpi" src="./icons/mipmap-xxxhdpi/ic_launcher.png" />
     <preference name="loglevel" value="DEBUG" />
     <preference name="Orientation" value="portrait" />
 </widget>
