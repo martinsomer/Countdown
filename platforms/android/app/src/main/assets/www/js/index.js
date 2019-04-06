@@ -45,6 +45,7 @@ var app = {
                 time.setAttribute('class', 'time')
                 
                 let remove = document.createElement('span')
+                remove.innerHTML = "&#x2716;"
                 remove.setAttribute('class', 'remove')
                 remove.addEventListener('click', (() => this.removeItem(event)), false)
                 remove.setAttribute('id', i)
