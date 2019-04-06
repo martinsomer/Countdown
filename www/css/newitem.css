@@ -70,7 +70,8 @@ body {
 
 .date::before {
     color: #7A7A7A;
-    content: "PICK A DATE";
+    content: "Pick a date";
+    text-transform: uppercase;
     white-space: nowrap;
 }
 

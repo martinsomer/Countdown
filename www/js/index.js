@@ -27,11 +27,12 @@ var app = {
     },
     
     retrieveItems: function() {
-        if (localStorage.getItem('items') !== null) {
-            
+        let size = JSON.parse(localStorage.getItem('items')).length
+        
+        if (size > 0) {
             const days = this.getDaysSinceEpoch()
             
-            for (let i=0; i<JSON.parse(localStorage.getItem('items')).length; i++) {
+            for (let i=0; i<size; i++) {
                 
                 let difference = parseInt(JSON.parse(localStorage.getItem('items'))[i][1]) - days
                 if (difference < 0) difference = 0
@@ -57,6 +58,11 @@ var app = {
                 item.appendChild(remove)
                 document.getElementById('items').appendChild(item)
             }
+        } else {
+            let noItems = document.createElement('div')
+            noItems.innerHTML = 'You have no' + '<br>' + 'upcoming events.'
+            noItems.setAttribute('class', 'noItems')
+            document.getElementById('items').appendChild(noItems)
         }
     },
     

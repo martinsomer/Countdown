@@ -45,6 +45,15 @@ body {
     flex-direction: column;
 }
 
+.noItems {
+    width: 100%;
+    margin-top: 25vh;
+    text-align: center;
+    color: #9A9A9A;
+    font-size: 2.5em;
+    font-weight: bold;
+}
+
 .item {
     background-color: white;
     margin: 7.5px 10px 7.5px 10px;
