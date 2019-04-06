@@ -35,7 +35,11 @@ var app = {
         if (localStorage.getItem('items') !== null) {
             items = JSON.parse(localStorage.getItem('items'))
         }
+        
+        
         items.push(item)
+        items = this.sortItems(items)
+        
         localStorage.setItem('items', JSON.stringify(items))
         
         navigator.app.backHistory()
@@ -46,6 +50,22 @@ var app = {
         selectedDate.setHours(24)
         
         return Math.floor(selectedDate.getTime() / 1000 / 60 / 60 / 24)
+    },
+    
+    sortItems: function(items) {
+        let sort
+        
+        do {
+            sort = false
+            for (let i=0; i<items.length-1; i++) {
+                if (parseInt(items[i][1]) > parseInt(items[i+1][1])) {
+                    [items[i], items[i+1]] = [items[i+1], items[i]]
+                    sort = true
+                }
+            }
+        } while (sort)
+        
+        return items
     }
 };
 
