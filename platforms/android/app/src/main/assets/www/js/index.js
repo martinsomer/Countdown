@@ -39,31 +39,44 @@ var app = {
         let size = JSON.parse(localStorage.getItem('items')).length
         
         if (size > 0) {
-            const days = this.getDaysSinceEpoch()
+            const daysSinceEpoch = this.getDaysSinceEpoch()
             
             for (let i=0; i<size; i++) {
                 
-                let difference = parseInt(JSON.parse(localStorage.getItem('items'))[i][1]) - days
+                let difference = parseInt(JSON.parse(localStorage.getItem('items'))[i][1]) - daysSinceEpoch
                 if (difference < 0) difference = 0
                 
-                let title = document.createElement('span')
+                // Create title element
+                let title = document.createElement('div')
                 title.innerHTML = JSON.parse(localStorage.getItem('items'))[i][0]
                 title.setAttribute('class', 'title')
                 
-                let time = document.createElement('span')
+                // Create 'time left' element
+                let time = document.createElement('div')
                 time.innerHTML = difference
                 time.setAttribute('class', 'time')
                 
-                let remove = document.createElement('span')
+                let days = document.createElement('div')
+                days.innerHTML = 'days'
+                days.setAttribute('class', 'days')
+                
+                let timeContainer = document.createElement('div')
+                timeContainer.setAttribute('class', 'timeContainer')
+                timeContainer.appendChild(time)
+                timeContainer.appendChild(days)
+                
+                // Create delete button
+                let remove = document.createElement('div')
                 remove.innerHTML = "&#x2716;"
                 remove.setAttribute('class', 'remove')
                 remove.addEventListener('click', (() => this.removeItem(event)), false)
                 remove.setAttribute('id', i)
                 
+                // Add the item to items container
                 let item = document.createElement('div')
                 item.setAttribute('class', 'item')
                 item.appendChild(title)
-                item.appendChild(time)
+                item.appendChild(timeContainer)
                 item.appendChild(remove)
                 document.getElementById('items').appendChild(item)
             }

@@ -81,12 +81,28 @@ body {
     word-break: break-word;
 }
 
+.timeContainer {
+    height: 40px;
+    margin: 0px 10px 0px 10px;
+    
+    display: flex;
+    flex-direction: column;
+}
+
 .time {
-    font-size: 3em;
+    height: 30px;
+    font-size: 2.5em;
     color: #00BFA5;
     text-align: center;
     font-weight: bold;
-    margin: 0px 10px 0px 10px;
+    text-align: center;
+}
+
+.days {
+    height: 10px;
+    color: black;
+    text-transform: uppercase;
+    text-align: center;
 }
 
 .remove {
