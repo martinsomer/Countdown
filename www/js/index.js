@@ -24,6 +24,15 @@ var app = {
     onDeviceReady: function() {
         document.getElementById('newItem').addEventListener('click', (() => window.location = "newitem.html"), false)
         this.refreshItems()
+        const refreshEveryMinute = setInterval((() => this.refreshItems()), 1000*60)
+    },
+    
+    refreshItems: function() {
+        const items = document.getElementById('items')
+        while (items.firstChild) {
+            items.removeChild(items.firstChild)
+        }
+        this.retrieveItems()
     },
     
     retrieveItems: function() {
@@ -83,15 +92,7 @@ var app = {
         localStorage.setItem('items', JSON.stringify(items))
 
         this.refreshItems()
-    },
-    
-    refreshItems: function() {
-        const items = document.getElementById('items')
-        while (items.firstChild) {
-            items.removeChild(items.firstChild)
-        }
-        this.retrieveItems()
     }
 };
 
-app.initialize();
+app.initialize()
