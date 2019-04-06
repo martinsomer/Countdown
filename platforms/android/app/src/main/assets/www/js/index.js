@@ -68,12 +68,14 @@ var app = {
     },
     
     removeItem: function(event) {
+        if (!confirm('Delete entry?')) return
+        
         let index = event.target.getAttribute('id')
         
         items = JSON.parse(localStorage.getItem('items'))
         items.splice(index, 1)
         localStorage.setItem('items', JSON.stringify(items))
-        
+
         this.refreshItems()
     },
     
