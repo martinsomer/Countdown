@@ -36,12 +36,11 @@ var app = {
     },
     
     retrieveItems: function() {
-        let size = JSON.parse(localStorage.getItem('items')).length
         
-        if (size > 0) {
+        if (localStorage.getItem('items') !== null) {
             const daysSinceEpoch = this.getDaysSinceEpoch()
             
-            for (let i=0; i<size; i++) {
+            for (let i=0; i<JSON.parse(localStorage.getItem('items')).length; i++) {
                 
                 let difference = parseInt(JSON.parse(localStorage.getItem('items'))[i][1]) - daysSinceEpoch
                 if (difference < 0) difference = 0
