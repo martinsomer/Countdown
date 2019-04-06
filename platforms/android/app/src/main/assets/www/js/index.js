@@ -23,22 +23,26 @@ var app = {
 
     onDeviceReady: function() {
         document.getElementById('newItem').addEventListener('click', (() => window.location = "newitem.html"), false)
-        this.saveItem('test', '0')
         this.refreshItems()
     },
     
     retrieveItems: function() {
         if (localStorage.getItem('items') !== null) {
             
+            const days = this.getDaysSinceEpoch()
+            
             for (let i=0; i<JSON.parse(localStorage.getItem('items')).length; i++) {
+                
+                let difference = parseInt(JSON.parse(localStorage.getItem('items'))[i][1]) - days
+                if (difference < 0) difference = 0
                 
                 let title = document.createElement('span')
                 title.innerHTML = JSON.parse(localStorage.getItem('items'))[i][0]
                 title.setAttribute('class', 'title')
                 
-                let date = document.createElement('span')
-                date.innerHTML = JSON.parse(localStorage.getItem('items'))[i][1]
-                date.setAttribute('class', 'date')
+                let time = document.createElement('span')
+                time.innerHTML = difference
+                time.setAttribute('class', 'time')
                 
                 let remove = document.createElement('span')
                 remove.setAttribute('class', 'remove')
@@ -48,22 +52,18 @@ var app = {
                 let item = document.createElement('div')
                 item.setAttribute('class', 'item')
                 item.appendChild(title)
-                item.appendChild(date)
+                item.appendChild(time)
                 item.appendChild(remove)
                 document.getElementById('items').appendChild(item)
             }
         }
     },
     
-    saveItem: function(title, date) {
-        let items = []
-        const item = [title, date]
+    getDaysSinceEpoch: function() {
+        let currentDate = new Date()
+        currentDate.setHours(24)
         
-        if (localStorage.getItem('items') !== null) {
-            items = JSON.parse(localStorage.getItem('items'))
-        }
-        items.push(item)
-        localStorage.setItem('items', JSON.stringify(items))
+        return Math.floor(currentDate.getTime() / 1000 / 60 / 60 / 24)
     },
     
     removeItem: function(event) {

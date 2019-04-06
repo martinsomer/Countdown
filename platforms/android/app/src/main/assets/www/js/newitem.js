@@ -22,7 +22,30 @@ var app = {
     },
 
     onDeviceReady: function() {
-        //
+        document.getElementById('confirm').addEventListener('click', (() => this.saveItem()), false)
+    },
+    
+    saveItem: function() {
+        let title = document.getElementById('title').value
+        let days = this.getDaysSinceEpoch()
+        
+        let items = []
+        const item = [title, days]
+        
+        if (localStorage.getItem('items') !== null) {
+            items = JSON.parse(localStorage.getItem('items'))
+        }
+        items.push(item)
+        localStorage.setItem('items', JSON.stringify(items))
+        
+        navigator.app.backHistory()
+    },
+    
+    getDaysSinceEpoch: function() {
+        let selectedDate = document.getElementById('date').valueAsDate
+        selectedDate.setHours(24)
+        
+        return Math.floor(selectedDate.getTime() / 1000 / 60 / 60 / 24)
     }
 };
 
