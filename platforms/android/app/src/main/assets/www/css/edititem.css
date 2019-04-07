@@ -34,96 +34,52 @@ body {
     /* Padding to avoid the "unsafe" areas behind notches in the screen */
     padding: env(safe-area-inset-top, 0px) env(safe-area-inset-right, 0px) env(safe-area-inset-bottom, 0px) env(safe-area-inset-right, 0px);
     width: 100%;
-}
-
-.items {
-    width: 100%;
-    margin-bottom: 90px;
-    overflow: auto;
     
+    /* For setting width of input element */
     display: flex;
     flex-direction: column;
-}
-
-.noItems {
-    width: 100%;
-    margin-top: 30vh;
-    text-align: center;
-    color: #9A9A9A;
-    font-size: 2.5em;
-    font-weight: bold;
-}
-
-.item {
-    background-color: white;
-    margin: 7.5px 10px 7.5px 10px;
-    padding: 10px 10px 10px 20px;
-    border-radius: 5px;
-    box-shadow: 5px 5px 5px #BDBDBD;
-    
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-}
-
-.item:first-of-type {
-    margin-top: 15px;
-}
-
-.item:last-of-type {
-    margin-bottom: 15px;
 }
 
 .title {
-    flex: 1;
-    font-size: 1.5em;
-    font-weight: bold;
-    word-break: break-word;
-}
-
-.timeContainer {
     height: 40px;
-    margin: 0px 10px 0px 10px;
-    
-    display: flex;
-    flex-direction: column;
-}
-
-.time {
-    height: 30px;
-    font-size: 2.5em;
-    color: #00BFA5;
-    text-align: center;
-    font-weight: bold;
-    text-align: center;
-}
-
-.days {
-    height: 10px;
-    color: black;
-    text-transform: uppercase;
-    text-align: center;
-}
-
-.remove {
-    width: 30px;
-    height: 30px;
-    color: white;
-    background-color: #EA2D3F;
+    margin: 15px 10px 15px 10px;
+    padding: 10px 20px 10px 20px;
+    border: none;
+    border-radius: 5px;
     font-size: 1.5em;
-    border-radius: 50%;
-    text-align: center;
+    box-shadow: 5px 5px 5px #BDBDBD;
+    outline: none;
+}
+
+.date {
+    width: 40%;
+    height: 40px;
+    margin: 5px auto;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.5em;
+    background-color: white;
+    box-shadow: 5px 5px 5px #BDBDBD;
+    outline: none;
+    white-space: nowrap;
     
-    /* Text line height same as element height */
-    line-height: 30px;
-    margin: 5px 5px 5px 5px;
+    /* Center the date */
+    display: flex;
+    justify-content: center;
 }
 
-.remove:active {
-    background-color: #F05E5C;
+.date::before {
+    color: #7A7A7A;
+    content: "Pick a date";
+    text-transform: uppercase;
+    white-space: nowrap;
 }
 
-.newItem {
+.date:valid::before {
+    content: "";
+}
+
+.confirm {
     position: fixed;
     bottom: 20px;
     right: 20px;
@@ -138,6 +94,6 @@ body {
     outline: none;
 }
 
-.newItem:active {
+.confirm:active {
     background-color: #64b5f6;
 }

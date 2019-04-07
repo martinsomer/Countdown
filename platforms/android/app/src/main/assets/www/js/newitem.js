@@ -18,7 +18,7 @@
  */
 var app = {
     initialize: function() {
-        document.addEventListener('deviceready', this.onDeviceReady.bind(this), false);
+        document.addEventListener('deviceready', this.onDeviceReady.bind(this), false)
     },
 
     onDeviceReady: function() {
@@ -26,11 +26,11 @@ var app = {
     },
     
     saveItem: function() {
-        let title = document.getElementById('title').value
-        let days = this.getDaysSinceEpoch()
+        const title = document.getElementById('title').value
+        const date = document.getElementById('date').valueAsDate.toString()
         
         let items = []
-        const item = [title, days]
+        const item = [title, date]
         
         if (localStorage.getItem('items') !== null) {
             items = JSON.parse(localStorage.getItem('items'))
@@ -45,20 +45,13 @@ var app = {
         navigator.app.backHistory()
     },
     
-    getDaysSinceEpoch: function() {
-        let selectedDate = document.getElementById('date').valueAsDate
-        selectedDate.setHours(24)
-        
-        return Math.floor(selectedDate.getTime() / 1000 / 60 / 60 / 24)
-    },
-    
     sortItems: function(items) {
         let sort
         
         do {
             sort = false
             for (let i=0; i<items.length-1; i++) {
-                if (parseInt(items[i][1]) > parseInt(items[i+1][1])) {
+                if (new Date(items[i][1]) > new Date(items[i+1][1])) {
                     [items[i], items[i+1]] = [items[i+1], items[i]]
                     sort = true
                 }

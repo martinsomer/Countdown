@@ -18,7 +18,7 @@
  */
 var app = {
     initialize: function() {
-        document.addEventListener('deviceready', this.onDeviceReady.bind(this), false);
+        document.addEventListener('deviceready', this.onDeviceReady.bind(this), false)
     },
 
     onDeviceReady: function() {
@@ -47,41 +47,41 @@ var app = {
             
         } else {
             
-            const daysSinceEpoch = this.getDaysSinceEpoch()
+            const currentDaysFromEpoch = this.getCurrentDaysFromEpoch()
 
             for (let i=0; i<JSON.parse(localStorage.getItem('items')).length; i++) {
 
-                let difference = parseInt(JSON.parse(localStorage.getItem('items'))[i][1]) - daysSinceEpoch
+                const difference = this.getDaysFromEpoch(i) - currentDaysFromEpoch
                 if (difference < 0) difference = 0
 
                 // Create title element
-                let title = document.createElement('div')
+                const title = document.createElement('div')
                 title.innerHTML = JSON.parse(localStorage.getItem('items'))[i][0]
                 title.setAttribute('class', 'title')
+                title.addEventListener('click', (() => window.location = "edititem.html?id=" + i), false)
 
                 // Create 'time left' element
-                let time = document.createElement('div')
+                const time = document.createElement('div')
                 time.innerHTML = difference
                 time.setAttribute('class', 'time')
 
-                let days = document.createElement('div')
+                const days = document.createElement('div')
                 days.innerHTML = 'days'
                 days.setAttribute('class', 'days')
 
-                let timeContainer = document.createElement('div')
+                const timeContainer = document.createElement('div')
                 timeContainer.setAttribute('class', 'timeContainer')
                 timeContainer.appendChild(time)
                 timeContainer.appendChild(days)
 
                 // Create delete button
-                let remove = document.createElement('div')
+                const remove = document.createElement('div')
                 remove.innerHTML = "&#x2716;"
                 remove.setAttribute('class', 'remove')
-                remove.addEventListener('click', (() => this.removeItem(event)), false)
-                remove.setAttribute('id', i)
+                remove.addEventListener('click', (() => this.removeItem(i)), false)
 
                 // Add the item to items container
-                let item = document.createElement('div')
+                const item = document.createElement('div')
                 item.setAttribute('class', 'item')
                 item.appendChild(title)
                 item.appendChild(timeContainer)
@@ -92,26 +92,31 @@ var app = {
     },
     
     noItems: function() {
-        let noItems = document.createElement('div')
+        const noItems = document.createElement('div')
         noItems.innerHTML = 'You have no' + '<br>' + 'upcoming events.'
         noItems.setAttribute('class', 'noItems')
         document.getElementById('items').appendChild(noItems)
     },
     
-    getDaysSinceEpoch: function() {
-        let currentDate = new Date()
+    getCurrentDaysFromEpoch: function() {
+        const currentDate = new Date()
         currentDate.setHours(24)
         
         return Math.floor(currentDate.getTime() / 1000 / 60 / 60 / 24)
     },
     
-    removeItem: function(event) {
+    getDaysFromEpoch: function(id) {
+        const item = JSON.parse(localStorage.getItem('items'))[id]
+        const date = new Date(item[1])
+        
+        return Math.floor(date.getTime() / 1000 / 60 / 60 / 24)
+    },
+    
+    removeItem: function(id) {
         if (!confirm('Delete entry?')) return
         
-        let index = event.target.getAttribute('id')
-        
         items = JSON.parse(localStorage.getItem('items'))
-        items.splice(index, 1)
+        items.splice(id, 1)
         localStorage.setItem('items', JSON.stringify(items))
 
         this.refreshItems()

@@ -22,27 +22,35 @@ var app = {
     },
 
     onDeviceReady: function() {
-        document.getElementById('confirm').addEventListener('click', (() => this.saveItem()), false)
+        const id = location.search.substring(4)
+        const item = JSON.parse(localStorage.getItem('items'))[id]
+        
+        document.getElementById('title').value = item[0]
+        document.getElementById('date').valueAsDate = new Date(item[1])
+        document.getElementById('confirm').addEventListener('click', (() => this.updateItem(id)), false)
     },
     
-    saveItem: function() {
+    updateItem: function(id) {
         const title = document.getElementById('title').value
-        const date = document.getElementById('date').valueAsDate.toString()
+        const date = this.getDate()
         
-        let items = []
+        let items = JSON.parse(localStorage.getItem('items'))
         const item = [title, date]
         
-        if (localStorage.getItem('items') !== null) {
-            items = JSON.parse(localStorage.getItem('items'))
-        }
         
-        
-        items.push(item)
+        items[id] = item
         items = this.sortItems(items)
         
         localStorage.setItem('items', JSON.stringify(items))
         
         navigator.app.backHistory()
+    },
+    
+    getDate: function() {
+        const selectedDate = document.getElementById('date').valueAsDate
+        selectedDate.setHours(24)
+        
+        return selectedDate.toString()
     },
     
     sortItems: function(items) {

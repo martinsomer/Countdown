@@ -17,4 +17,4 @@ SDK versioonist tulenevad muutused vajalikud ei olnud.
 Kogu rakenduse loogika on ise tehtud: kirjete lisamine, eemaldamine, sorteerimine, automaatne uuendamine, elementide dünaamiline genereerimine, kuupäeva arvutamine, kasutajaliides ja ikoon.
 
 ## Demo
-Demo on vaadatav [siin](https://drive.google.com/file/d/1VBBwhusdMdc-93MYdnNZmk_kBR5wByQi/view?usp=sharing).
+Demo on vaadatav [siin](https://drive.google.com/file/d/1UzPr-qmfW6X4LHS3vR-qGTUCW8RAMBWG/view?usp=sharing).
