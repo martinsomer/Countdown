@@ -51,7 +51,7 @@ var app = {
 
             for (let i=0; i<JSON.parse(localStorage.getItem('items')).length; i++) {
 
-                const difference = this.getDaysFromEpoch(i) - currentDaysFromEpoch
+                let difference = this.getDaysFromEpoch(i) - currentDaysFromEpoch
                 if (difference < 0) difference = 0
 
                 // Create title element
